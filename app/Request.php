@@ -17,4 +17,9 @@ class Request extends Model
     {
         return $this->belongsToMany(User::class, 'contract', 'request_id', 'contractor_id')->withTimestamps();
     }
+
+    public function is_contracted($userId)
+    {
+    	return $this->contracteds()->where('contractor_id', $userId)->exists();
+    }
 }

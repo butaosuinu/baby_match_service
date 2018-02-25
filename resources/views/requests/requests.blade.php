@@ -10,14 +10,26 @@
                 <div class="panel-body">
                     <div>
                         <p>場所：{!! nl2br(e($request->area)) !!}</p>
-                        <p>日時：{!! nl2br(e($request->date)) !!}</p>
-                        {{-- @if ($user->is_contract($request->id))
-                            <p>受注者：</p>
-                            <p>受注者メール：</p>
-                        @endif --}}
+                        <p>日時：{{ $request->date }}</p>
+                        @if ($request->contracteds())
+                            @foreach ($request->contracteds() as $contractor)
+                                <p>受注者：{{ $contractor->name }}</p>
+                                <p>受注者メール：{{ $contractor->email }}</p>
+                            @endforeach
+                        @endif
                     </div>
                     <div>
                         {{-- @include('requests.contract_button', ['request' => $request]) --}}
+                        @if (Auth::user()->is_contract($request->id))
+                            {!! Form::open(['route' => ['user.uncontract', $request->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('受注済', ['class' => "btn btn-success btn-xs"]) !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['route' => ['user.contract', $request->id]]) !!}
+                                {!! Form::submit('受注する', ['class' => "btn btn-default btn-xs"]) !!}
+                            {!! Form::close() !!}
+                        @endif
+
                         @if (Auth::user()->id == $request->user_id)
                             {!! Form::open(['route' => ['requests.destroy', $request->id], 'method' => 'delete']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
