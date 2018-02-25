@@ -62,8 +62,6 @@ class UsersController extends Controller
             'requests' => $requests,
         ];
         
-        $data += $this->counts($user);
-        
         return view('users.show', $data);
     }
 
@@ -104,14 +102,16 @@ class UsersController extends Controller
     public function contracts($id)
     {
         $user = User::find($id);
-        $contracts = $user->requests()->contracteds()->paginate(10);
+        $requests = $user->requests();
+        $contracts =[];
+        foreach ($requests as $req) {
+            $contracts += $req->contracteds()->paginate(10);
+        };
 
         $data = [
             'user' => $user,
-            'microposts' => $contracts,
+            'contracts' => $contracts,
         ];
-        
-        $data += $this->counts($user);
         
         return view('users.contracts', $data);
     }

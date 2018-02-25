@@ -11,6 +11,20 @@
                     <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 500) }}" alt="">
                 </div>
             </div>
+            <h3>依頼を出す</h3>
+            {!! Form::open(['route' => 'requests.store']) !!}
+                <div class="form-group">
+                    {!! Form::label('area', '場所') !!}
+                    {!! Form::text('area', old('area'), ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('day', '日時') !!}
+                    {!! Form::date('day', old('day'), ['class' => 'form-control']) !!}
+                </div>
+                
+                {!! Form::submit('依頼を出す', ['class' => 'btn btn-primary btn-block']) !!}
+            {!! Form::close() !!}
         </aside>
         <div class="col-xs-8">
             <ul class="nav nav-tabs nav-justified">

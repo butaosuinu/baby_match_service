@@ -39,10 +39,10 @@ class RequestsController extends Controller
     {
         $this->validate($request, [
             'area' => 'required|max:255',
-            'day' => 'day',
+            'day' => 'date',
         ]);
         
-        $request->user()->microposts()->create([
+        $request->user()->requests()->create([
             'area' => $request->area,
             'day' => $request->day,
         ]);
