@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
+// use App\Request;
+
 class RequestsController extends Controller
 {
     /**
@@ -16,7 +19,7 @@ class RequestsController extends Controller
      */
     public function index()
     {
-        $requests = Request::paginate(10);
+        $requests = \App\Request::paginate(10);
 
         return view('requests.index', [
             'requests' => $requests,
