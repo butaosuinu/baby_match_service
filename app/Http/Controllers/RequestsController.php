@@ -39,12 +39,12 @@ class RequestsController extends Controller
     {
         $this->validate($request, [
             'area' => 'required|max:255',
-            'date' => 'date',
+            'day' => 'day',
         ]);
         
         $request->user()->microposts()->create([
             'area' => $request->area,
-            'date' => $request->date,
+            'day' => $request->day,
         ]);
     
         return redirect('/');
