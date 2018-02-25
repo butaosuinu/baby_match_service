@@ -28,5 +28,5 @@ Route::group(['middleware' => 'auth'], function () {
     	Route::post('contract', 'ContractsController@store')->name('user.contract');
     });
 
-    oute::resource('requests', 'RequestsController', ['only' => ['store', 'destroy']]);
+    Route::resource('requests', 'RequestsController', ['only' => ['store', 'destroy']]);
 });
