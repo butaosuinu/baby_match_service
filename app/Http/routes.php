@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'], function () {
     	Route::get('contracts', 'UsersController@contracts')->name('users.contracts');
     	Route::post('contract', 'ContractsController@store')->name('user.contract');
+    	Route::post('uncontract', 'ContractsController@destroy')->name('user.uncontract');
     });
 
     Route::resource('requests', 'RequestsController', ['only' => ['store', 'destroy']]);

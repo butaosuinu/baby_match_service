@@ -83,6 +83,7 @@ class ContractsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Auth::user()->uncontract($id);
+        return redirect()->back();
     }
 }
