@@ -16,7 +16,11 @@ class RequestsController extends Controller
      */
     public function index()
     {
-        //
+        $requests = Request::paginate(10);
+
+        return view('requests.index', [
+            'requests' => $requests,
+        ]);
     }
 
     /**

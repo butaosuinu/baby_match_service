@@ -29,5 +29,5 @@ Route::group(['middleware' => 'auth'], function () {
     	Route::post('uncontract', 'ContractsController@destroy')->name('user.uncontract');
     });
 
-    Route::resource('requests', 'RequestsController', ['only' => ['store', 'destroy']]);
+    Route::resource('requests', 'RequestsController', ['only' => ['index', 'store', 'destroy']]);
 });

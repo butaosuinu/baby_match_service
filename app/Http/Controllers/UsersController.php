@@ -105,7 +105,7 @@ class UsersController extends Controller
         $requests = $user->requests();
         $contracts = [];
         foreach ($requests as $req) {
-            $contracts += $req->contracteds();
+            $contracts += $req->contracteds()->all();
             var_dump($contracts);
         };
 
