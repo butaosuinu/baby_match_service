@@ -22,5 +22,11 @@ Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+	Route::resource('users', 'UsersController', ['only' => ['show']]);
+    Route::group(['prefix' => 'users/{id}'], function () {
+    	Route::get('contracts', 'UsersController@contracts')->name('users.contracts');
+    	Route::post('contract', 'ContractsController@store')->name('user.contract');
+    });
+
+    oute::resource('requests', 'RequestsController', ['only' => ['store', 'destroy']]);
 });

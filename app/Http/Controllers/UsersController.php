@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
+
 class UsersController extends Controller
 {
     /**
@@ -16,7 +18,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(10);
+
+        return view('users.index', [
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -48,7 +54,17 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $requests = $user->requests()->orderBy('created_at', 'desc')->paginate(10);
+        
+        $data = [
+            'user' => $user,
+            'requests' => $requests,
+        ];
+        
+        $data += $this->counts($user);
+        
+        return view('users.show', $data);
     }
 
     /**
@@ -83,5 +99,20 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function contracts($id)
+    {
+        $user = User::find($id);
+        $contracts = $user->requests()->contracteds()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'microposts' => $contracts,
+        ];
+        
+        $data += $this->counts($user);
+        
+        return view('users.contracts', $data);
     }
 }

@@ -37,7 +37,17 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'area' => 'required|max:255',
+            'date' => 'date',
+        ]);
+        
+        $request->user()->microposts()->create([
+            'area' => $request->area,
+            'date' => $request->date,
+        ]);
+    
+        return redirect('/');
     }
 
     /**
@@ -82,6 +92,12 @@ class RequestsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $request = \App\Request::find($id);
+
+        if (\Auth::user()->id === $request->user_id) {
+            $request->delete();
+        }
+
+        return redirect()->back();
     }
 }

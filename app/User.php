@@ -36,4 +36,43 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function contracts()
+    {
+        return $this->belongsToMany(Request::class, 'contract', 'contractor_id', 'request_id')->withTimestamps();
+    }
+
+    public function contract($requestId)
+    {
+        $exist = $this->is_contract($requestId);
+
+        if ($exist) {
+            return false;
+        } else {
+            $this->contracts()->attach($requestId);
+            return true;
+        }
+    }
+
+    public function uncontract($requestId)
+    {
+        $exist = $this->is_contract($requestId);
+        
+        if ($exist) {
+            $this->contracts()->detach($requestId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function is_contract($requestId)
+    {
+        return $this->contracts()->where('request_id', $requestId)->exists();
+    }
 }
