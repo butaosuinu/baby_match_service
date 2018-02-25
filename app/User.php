@@ -44,7 +44,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function contracts()
     {
-        return $this->belongsToMany(Request::class, 'contract', 'contractor_id', 'request_id')->withTimestamps();
+        return $this->belongsToMany(Request::class, 'contracts', 'contractor_id', 'request_id')->withTimestamps();
     }
 
     public function contract($requestId)

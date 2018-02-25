@@ -15,7 +15,7 @@ class Request extends Model
 
     public function contracteds()
     {
-        return $this->belongsToMany(User::class, 'contract', 'request_id', 'contractor_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'contracts', 'request_id', 'contractor_id')->withTimestamps();
     }
 
     public function is_contracted($userId)
