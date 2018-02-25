@@ -9,6 +9,7 @@
         <div class="col-md-6 col-md-offset-3">
             
             {!! Form::open(['route' => 'signup.post']) !!}
+                {!! Form::hidden('is_babysitter', true) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
