@@ -1,5 +1,6 @@
 <ul class="media-list">
 @foreach ($requests as $request)
+    @if ($request->contracteds()->count() > 0)
     <?php $user = $request->user; ?>
     <li class="media">
         <div class="media-body">
@@ -11,11 +12,9 @@
                     <div>
                         <p>場所：{!! nl2br(e($request->area)) !!}</p>
                         <p>日時：{{ $request->day }}</p>
-                        @if ($request->contracteds()->count() > 0)
-                            <?php $con = $request->contracteds()->first(); ?>
-                            <p>受注者：{!! nl2br(e($con['name'])) !!}</p>
-                            <p>受注者メール：{!! nl2br(e($con['email'])) !!}</p>
-                        @endif
+                        <?php $con = $request->contracteds()->first(); ?>
+                        <p>受注者：{!! nl2br(e($con['name'])) !!}</p>
+                        <p>受注者メール：{!! nl2br(e($con['email'])) !!}</p>
                     </div>
                     <div>
                         {{-- @include('requests.contract_button', ['request' => $request]) --}}
@@ -42,6 +41,7 @@
             </div>
         </div>
     </li>
+    @endif
 @endforeach
 </ul>
 {!! $requests->render() !!}

@@ -18,7 +18,7 @@
                 <li role="presentation" class="{{ Request::is('users/*/contracts') ? 'active' : '' }}"><a href="{{ route('users.contracts', ['id' => $user->id]) }}">契約済み </a></li>
             </ul>
             @if (count($requests) > 0)
-                @include('requests.requests', ['requests' => $requests])
+                @include('requests.requests2', ['requests' => $requests])
             @endif
         </div>
     </div>

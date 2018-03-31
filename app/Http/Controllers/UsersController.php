@@ -102,14 +102,16 @@ class UsersController extends Controller
     public function contracts($id)
     {
         $user = User::find($id);
-        // $contracts = $user->requests->contracteds();
-        $contracts = [];
+        $req = [];
+        $requests = $user->requests()->orderBy('created_at', 'desc')->paginate(10);
         // foreach ($requests as $r) {
-        //     $contracts += \App\Request::find($r->id)->contracteds()->first();
+        //     if ($r->contracteds()->count() > 0) {
+        //         $req[] = $r;
+        //     }
         // }
         $data = [
             'user' => $user,
-            'requests' => $contracts,
+            'requests' => $requests,
         ];
         
         return view('users.contracts', $data);
