@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     <div>
                         <p>場所：{!! nl2br(e($request->area)) !!}</p>
-                        <p>日時：{{ $request->date }}</p>
+                        <p>日時：{{ $request->day }}</p>
                         @if ($request->contracteds())
                             @foreach ($request->contracteds() as $contractor)
                                 <p>受注者：{{ $contractor->name }}</p>
