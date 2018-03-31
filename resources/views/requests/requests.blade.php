@@ -20,10 +20,14 @@
                     <div>
                         {{-- @include('requests.contract_button', ['request' => $request]) --}}
                         
-                        @if ($request->is_contracted(Auth::user()->id))
+                        @if ($request->contracteds()->count() > 0)
+                            @if ($request->is_contracted(Auth::user()->id))
                             {!! Form::open(['route' => ['user.uncontract', $request->id], 'method' => 'delete']) !!}
                                 {!! Form::submit('受注済', ['class' => "btn btn-success btn-xs"]) !!}
                             {!! Form::close() !!}
+                            @else
+                            <button type="button" class="btn btn-success btn-xs">受注済</button>
+                            @endif
                         @else
                             @if (Auth::user()->id != $request->user_id)
                                 {!! Form::open(['route' => ['user.contract', $request->id]]) !!}
