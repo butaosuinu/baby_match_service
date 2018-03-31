@@ -102,8 +102,8 @@ class UsersController extends Controller
     public function contracts($id)
     {
         $user = User::find($id);
-        $contracts = $user->requests->contracteds();
-        // $contracts = [];
+        // $contracts = $user->requests->contracteds();
+        $contracts = [];
         // foreach ($requests as $r) {
         //     $contracts += \App\Request::find($r->id)->contracteds()->first();
         // }
